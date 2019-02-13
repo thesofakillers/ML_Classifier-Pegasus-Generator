@@ -8,7 +8,6 @@ import torchvision  # provides specific datasets
 import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt  # provides plotting capabilities
-from livelossplot import PlotLosses  # provides live plotting capabilities
 # </section> End of Imports
 
 
@@ -111,8 +110,6 @@ print(
 optimiser = torch.optim.SGD(N.parameters(), lr=0.001)
 # set start epoch
 epoch = 0
-# initialize live loss plot object
-liveplot = PlotLosses()
 # </section> End of Training/Testing Set up
 
 
@@ -153,15 +150,6 @@ while (epoch < 10):
         test_loss_arr = np.append(test_loss_arr, loss.cpu().data)
         test_acc_arr = np.append(test_acc_arr, pred.data.eq(
             t.view_as(pred)).float().mean().item())
-
-    # NOTE: live plot library has dumb naming forcing our 'test' to be called 'validation'
-    liveplot.update({
-        'accuracy': train_acc_arr.mean(),
-        'val_accuracy': test_acc_arr.mean(),
-        'loss': train_loss_arr.mean(),
-        'val_loss': test_loss_arr.mean()
-    })
-    liveplot.draw()
 
     epoch = epoch + 1
 # </section> End of Training/Testing
