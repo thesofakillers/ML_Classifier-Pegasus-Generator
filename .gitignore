@@ -104,3 +104,6 @@ venv.bak/
 .mypy_cache/
 
 data
+Training
+.DS_Store
+Results
